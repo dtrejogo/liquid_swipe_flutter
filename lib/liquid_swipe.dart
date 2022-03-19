@@ -77,8 +77,8 @@ typedef CurrentUpdateTypeCallback = void Function(UpdateType updateType);
 ///       },
 ///     ),
 /// ```
-typedef SlidePercentCallback = void Function(
-    double slidePercentHorizontal, double slidePercentVertical);
+typedef SlidePercentCallback = void Function(double slidePercentHorizontal,
+    double slidePercentVertical, SlideDirection slideDirection);
 
 /// LiquidSwipe widget for out of the box Animation between stacked Widgets.
 ///

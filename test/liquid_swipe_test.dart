@@ -15,7 +15,9 @@ final liquidSwipeWidgetLR = LiquidSwipe(
       height: double.infinity,
       width: double.infinity,
       color: Colors.deepOrange,
-      child: Center(child: Text(textTest1, textDirection: TextDirection.ltr),),
+      child: Center(
+        child: Text(textTest1, textDirection: TextDirection.ltr),
+      ),
     ),
     Container(
       height: double.infinity,
@@ -46,9 +48,9 @@ final liquidSwipeWidgetCR = LiquidSwipe(
   liquidController: liquidController,
   waveType: WaveType.circularReveal,
   positionSlideIcon: 0.2,
-  onPageChangeCallback: (_){},
-  slidePercentCallback: (_, __){},
-  currentUpdateTypeCallback: (_){},
+  onPageChangeCallback: (_) {},
+  slidePercentCallback: (_, __, ___) {},
+  currentUpdateTypeCallback: (_) {},
   pages: [
     Container(
       height: double.infinity,
@@ -65,7 +67,8 @@ final liquidSwipeWidgetCR = LiquidSwipe(
 
 void main() {
   testWidgets('Liquid Swipe main widget test : ', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp( home : Scaffold(body:liquidSwipeWidgetLR)));
+    await tester
+        .pumpWidget(MaterialApp(home: Scaffold(body: liquidSwipeWidgetLR)));
 
     final findLiquidSwipeLR = find.byWidget(liquidSwipeWidgetLR);
     expect(findLiquidSwipeLR, findsOneWidget);
@@ -77,7 +80,7 @@ void main() {
     liquidController.jumpToPage(page: 1);
     expect(liquidController.currentPage, 1);
 
-    await tester.runAsync(() async{
+    await tester.runAsync(() async {
       liquidController.animateToPage(page: 0);
       expect(liquidController.currentPage, 1);
     });
@@ -92,11 +95,11 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(liquidController.currentPage, 1);
-
   });
 
-  testWidgets("For Circular Reveal", (WidgetTester tester) async{
-    await tester.pumpWidget(MaterialApp( home : Scaffold(body:liquidSwipeWidgetCR)));
+  testWidgets("For Circular Reveal", (WidgetTester tester) async {
+    await tester
+        .pumpWidget(MaterialApp(home: Scaffold(body: liquidSwipeWidgetCR)));
     final findLiquidSwipeCR = find.byWidget(liquidSwipeWidgetCR);
     expect(findLiquidSwipeCR, findsOneWidget);
 
@@ -108,11 +111,11 @@ void main() {
 
     liquidController.animateToPage(page: 4);
     expect(liquidController.currentPage, 1);
-
   });
 
-  testWidgets("For Liquid Swipe but rtl", (WidgetTester tester) async{
-    await tester.pumpWidget(MaterialApp( home : Scaffold(body:liquidSwipeWidgetLR2)));
+  testWidgets("For Liquid Swipe but rtl", (WidgetTester tester) async {
+    await tester
+        .pumpWidget(MaterialApp(home: Scaffold(body: liquidSwipeWidgetLR2)));
 
     liquidController.jumpToPage(page: 0);
 
@@ -129,6 +132,5 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(liquidController.currentPage, 1);
-
   });
 }

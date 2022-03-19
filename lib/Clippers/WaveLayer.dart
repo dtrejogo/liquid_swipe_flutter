@@ -27,6 +27,13 @@ class WaveLayer extends CustomClipper<Path> {
   getClip(Size size) {
     Path path = Path();
     sideWidth = sidewidth(size);
+
+    path = drawClip(path, size, sideWidth);
+
+    return path;
+  }
+
+  Path drawClip(Path path, Size size, double sideWidth) {
     waveVertRadius = waveVertRadiusF(size);
 
     waveCenterY = size.height * verReveal;
@@ -144,7 +151,7 @@ class WaveLayer extends CustomClipper<Path> {
     var p2 = 0.8;
 
     if (revealPercent <= p1) {
-      return enableSideReveal ? 15.0 : 0;
+      return enableSideReveal ? 5.0 : 0;
     }
 
     if (revealPercent >= p2) {
@@ -163,7 +170,8 @@ class WaveLayer extends CustomClipper<Path> {
     var p1 = 0.4;
 
     if (revealPercent <= 0) {
-      return enableSideReveal ? iconSize.height : 0;
+      //return enableSideReveal ? iconSize.height : 0;
+      return enableSideReveal ? 75 : 0;
     }
 
     if (revealPercent >= p1) {

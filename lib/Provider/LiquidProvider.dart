@@ -135,31 +135,32 @@ class LiquidProvider extends ChangeNotifier {
   /// If you encounter this and have suggestions don't forget to raise an Issue.
   ///
   ///Not making it for Public usage for now due to the mentioned Issue
-  /// _animateDirectlyToPage(int page, int duration) {
-  ///   if (isInProgress || activePageIndex == page) return;
-  ///   isInProgress = true;
-  ///   activePageIndex = page - 1;
-  ///   nextPageIndex = page;
-  ///   if (activePageIndex < 0) {
-  ///     activePageIndex = 0;
-  ///     jumpToPage(page);
-  ///     return;
-  ///   }
-  ///   _timer = Timer.periodic(const Duration(milliseconds: 1), (t) {
-  ///     if (t.tick < duration / 2) {
-  ///       updateSlide(SlideUpdate(SlideDirection.rightToLeft, t.tick / duration,
-  ///           1, UpdateType.dragging));
-  ///     } else if (t.tick < duration) {
-  ///       updateSlide(SlideUpdate(SlideDirection.rightToLeft, t.tick / duration,
-  ///           1, UpdateType.animating));
-  ///     } else {
-  ///       updateSlide(SlideUpdate(
-  ///           SlideDirection.rightToLeft, 1, 1, UpdateType.doneAnimating));
-  ///       t.cancel();
-  ///       isInProgress = false;
-  ///     }
-  ///   });
-  /// }
+  /*animateToPage(int page, int duration) {
+    if (isInProgress || activePageIndex == page) return;
+    isInProgress = true;
+    activePageIndex = page - 1;
+    nextPageIndex = page;
+    if (activePageIndex < 0) {
+      activePageIndex = 0;
+      jumpToPage(page);
+      return;
+    }
+    _timer = Timer.periodic(const Duration(milliseconds: 1), (t) {
+      if (t.tick < duration / 2) {
+        updateSlide(SlideUpdate(SlideDirection.rightToLeft, t.tick / duration,
+            1, UpdateType.dragging));
+      } else if (t.tick < duration) {
+        updateSlide(SlideUpdate(SlideDirection.rightToLeft, t.tick / duration,
+            1, UpdateType.animating));
+      } else {
+        updateSlide(SlideUpdate(
+            SlideDirection.rightToLeft, 1, 1, UpdateType.doneAnimating));
+        t.cancel();
+        isInProgress = false;
+      }
+    });
+  }*/
+
   ///
   ///Animating to the Page in One-by-One manner
   ///Required parameters :
@@ -259,8 +260,8 @@ class LiquidProvider extends ChangeNotifier {
         event.updateType != UpdateType.doneAnimating) {
       String hor = (event.slidePercentHor * 100).toStringAsExponential(2);
       String ver = (event.slidePercentVer * 100).toStringAsExponential(2);
-      _slidePercentCallback!(
-          double.parse(hor), (((double.parse(ver)) * 100) / 100));
+      _slidePercentCallback!(double.parse(hor),
+          (((double.parse(ver)) * 100) / 100), event.direction);
     }
 
     prevUpdate = event.updateType;
