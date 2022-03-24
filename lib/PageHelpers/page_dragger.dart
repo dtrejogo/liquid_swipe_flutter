@@ -140,19 +140,24 @@ class _PageDraggerState extends State<PageDragger> {
             1 - slidePercentHor,
             -1.0 + Utils.handleIconAlignment(widget.iconPosition!) * 2,
           ),
-          child: Opacity(
-            opacity: 1 - slidePercentHor,
-            child: slideDirection != SlideDirection.leftToRight &&
-                    widget.slideIconWidget != null
-                ? SizedBox(
-                    key: _keyIcon,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 2.0, vertical: 10.0),
-                      child: widget.slideIconWidget,
-                    ),
-                  )
-                : null,
+          child: GestureDetector(
+            onTap: () {
+              model.animateToPage(model.nextPageIndex, 1200);
+            },
+            child: Opacity(
+              opacity: 1 - slidePercentHor,
+              child: slideDirection != SlideDirection.leftToRight &&
+                      widget.slideIconWidget != null
+                  ? SizedBox(
+                      key: _keyIcon,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 2.0, vertical: 10.0),
+                        child: widget.slideIconWidget,
+                      ),
+                    )
+                  : null,
+            ),
           ),
         ));
   }

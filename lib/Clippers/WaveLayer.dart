@@ -42,6 +42,7 @@ class WaveLayer extends CustomClipper<Path> {
         : waveHorRadiusF(size);
 
     var maskWidth = size.width - sideWidth;
+
     path.moveTo(maskWidth - sideWidth, 0);
     path.lineTo(0, 0);
     path.lineTo(0, size.height);
@@ -151,7 +152,7 @@ class WaveLayer extends CustomClipper<Path> {
     var p2 = 0.8;
 
     if (revealPercent <= p1) {
-      return enableSideReveal ? 5.0 : 0;
+      return enableSideReveal ? 7.0 : 0;
     }
 
     if (revealPercent >= p2) {
@@ -210,21 +211,25 @@ class WaveLayer extends CustomClipper<Path> {
   }
 
   double waveHorRadiusFBack(Size size) {
+    double iconWidth = iconSize.width;
+
     if (revealPercent <= 0) {
       return iconSize.width;
     }
 
-    if (revealPercent >= 1) {
+    /*if (revealPercent >= 1) {
       return 0;
-    }
+    }*/
 
     var p1 = 0.4;
     if (revealPercent <= p1) {
-      return iconSize.width + revealPercent / p1 * iconSize.width;
+      var r = (iconWidth + revealPercent / p1 * iconWidth);
+      return r;
+      //return iconSize.width + revealPercent / p1 * iconSize.width;
     }
 
     var t = (revealPercent - p1) / (1.0 - p1);
-    var A = iconSize.width + 8;
+    var A = iconWidth + 1000;
     var r = 40;
     var m = 9.8;
     var beta = r / (2 * m);
@@ -232,6 +237,13 @@ class WaveLayer extends CustomClipper<Path> {
     var omega0 = k / m;
     var omega = pow(-pow(beta, 2) + pow(omega0, 2), 0.5);
 
-    return A * exp(-beta * t) * cos(omega * t);
+    var ri = (A * exp(-beta * t) * cos(omega * t)) * 1;
+
+    // me mantiene la curva de regreso y avanza desde aca, caso contrario se devuelve
+    if (ri > 0) {
+      ri = 21;
+    }
+
+    return ri;
   }
 }

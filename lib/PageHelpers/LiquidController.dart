@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:liquid_swipe/Helpers/SlideUpdate.dart';
 import 'package:liquid_swipe/Provider/LiquidProvider.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:provider/provider.dart';
@@ -74,6 +75,12 @@ class LiquidController {
     assert(_provider != null,
         "LiquidController not attached to any LiquidSwipe Widget.");
     _provider?.setUserGesture = disable;
+  }
+
+  updateSlide({required SlideUpdate slideUpdate}) {
+    assert(_provider != null,
+        "LiquidController not attached to any LiquidSwipe Widget.");
+    _provider?.updateSlide(slideUpdate);
   }
 
   ///If somehow you want to check if gestures are disabled or not

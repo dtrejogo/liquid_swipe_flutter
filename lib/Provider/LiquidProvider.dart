@@ -176,22 +176,23 @@ class LiquidProvider extends ChangeNotifier {
       diff = page - activePageIndex;
       int newDuration = duration ~/ diff;
       _timer = Timer.periodic(Duration(milliseconds: newDuration), (callback) {
-        _timerInner = Timer.periodic(const Duration(milliseconds: 1), (t) {
-          if (t.tick < newDuration / 2) {
-            updateSlide(SlideUpdate(SlideDirection.rightToLeft,
-                t.tick / newDuration, positionSlideIcon, UpdateType.dragging));
-          } else if (t.tick < newDuration) {
-            updateSlide(SlideUpdate(SlideDirection.rightToLeft,
-                t.tick / newDuration, positionSlideIcon, UpdateType.animating));
-          } else {
-            updateSlide(SlideUpdate(SlideDirection.rightToLeft, 1,
-                positionSlideIcon, UpdateType.doneAnimating));
-            t.cancel();
-          }
-        });
         if (callback.tick >= diff) {
           callback.cancel();
           isInProgress = false;
+        }
+      });
+
+      _timerInner = Timer.periodic(const Duration(milliseconds: 1), (t) {
+        if (t.tick < newDuration / 2) {
+          updateSlide(SlideUpdate(SlideDirection.rightToLeft,
+              t.tick / newDuration, positionSlideIcon, UpdateType.dragging));
+        } else if (t.tick < newDuration) {
+          updateSlide(SlideUpdate(SlideDirection.rightToLeft,
+              t.tick / newDuration, positionSlideIcon, UpdateType.animating));
+        } else {
+          updateSlide(SlideUpdate(SlideDirection.rightToLeft, 1,
+              positionSlideIcon, UpdateType.doneAnimating));
+          t.cancel();
         }
       });
     } else {
@@ -303,7 +304,8 @@ class LiquidProvider extends ChangeNotifier {
     //if the user has done dragging
     else if (event.updateType == UpdateType.doneDragging) {
       // slidepercent > 0.2 so that it wont reveal itself unless this condition is true
-      if (slidePercentHor > 0.2) {
+
+      if (slidePercentHor > 0.106) {
         isAnimating = true; // Page started to animate
 
         animatedPageDragger = AnimatedPageDragger(
